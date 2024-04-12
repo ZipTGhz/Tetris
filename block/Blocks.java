@@ -247,6 +247,19 @@ public class Blocks {
     }
   }
 
+  public static class GhostBlock extends Block {
+
+    public GhostBlock(Block b) {
+      this.id = 8;
+      this.cell = new Position[b.cell.length][b.cell[0].length]; // Tạo một mảng mới để sao chép các vị trí của block ban đầu
+      for (int i = 0; i < b.cell.length; i++) {
+        for (int j = 0; j < b.cell[0].length; ++j) {
+          this.cell[i][j] = new Position(b.cell[i][j].x, b.cell[i][j].y);
+        }
+      }
+    }
+  }
+
   public Block[] get_all_Blocks() {
     return new Block[] {
       new IBlock(),

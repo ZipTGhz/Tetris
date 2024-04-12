@@ -12,6 +12,7 @@ public class Colors {
   static Color purple = new Color(166, 0, 247);
   static Color cyan = new Color(21, 204, 209);
   static Color blue = new Color(13, 64, 216);
+  static Color white = Color.WHITE;
 
   public static Color[] getCellColors() {
     return new Color[] {
@@ -23,6 +24,7 @@ public class Colors {
       purple,
       cyan,
       blue,
+      white,
     };
   }
 }

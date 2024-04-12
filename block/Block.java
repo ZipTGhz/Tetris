@@ -46,4 +46,12 @@ public class Block {
       }
     }
   }
+
+  public void insertRow(int y) {
+    for (int i = 0; i < cell.length; ++i) {
+      for (int j = 0; j < cell[0].length; ++j) {
+        cell[i][j].y = y;
+      }
+    }
+  }
 }
