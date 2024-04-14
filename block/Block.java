@@ -5,6 +5,7 @@ import java.awt.Graphics;
 
 public class Block {
 
+  private final int SIZE = 32;
   private Color[] cs = Colors.getCellColors();
   public int id;
   public Position[][] cell;
@@ -16,10 +17,10 @@ public class Block {
     g.setColor(cs[id]);
     for (int i = 0; i < cell[0].length; ++i) {
       g.fillRect(
-        cell[rotationState][i].x * 48,
-        cell[rotationState][i].y * 48,
-        48,
-        48
+        cell[rotationState][i].x * SIZE,
+        cell[rotationState][i].y * SIZE,
+        SIZE,
+        SIZE
       );
     }
   }
