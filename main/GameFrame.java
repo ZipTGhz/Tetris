@@ -16,7 +16,7 @@ public class GameFrame extends JFrame {
   public GameDialog gd;
   private MainMenuPanel mp;
   private GamePanel gp = null;
-  private Sound sound = new Sound();
+  private Sound music = new Sound();
   public BufferedImage originalImage;
 
   GameFrame() {
@@ -60,12 +60,12 @@ public class GameFrame extends JFrame {
   }
 
   private void playMusic(int index) {
-    sound.setFile(index);
-    sound.play();
-    sound.loop();
+    music.setFile(index);
+    music.play();
+    music.loop();
   }
 
   private void stopMusic() {
-    sound.stop();
+    music.stop();
   }
 }

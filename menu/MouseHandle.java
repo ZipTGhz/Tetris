@@ -3,11 +3,13 @@ package menu;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import main.GameFrame;
+import main.Sound;
 
 public class MouseHandle implements MouseListener {
 
   MainMenuPanel mp;
   GameFrame gf;
+  Sound se = new Sound();
 
   public MouseHandle(GameFrame gf, MainMenuPanel mp) {
     this.gf = gf;
@@ -21,6 +23,7 @@ public class MouseHandle implements MouseListener {
   public void mousePressed(MouseEvent e) {
     int click = e.getButton();
     if (click == MouseEvent.BUTTON1) {
+      playSE(12);
       int x = e.getX(), y = e.getY();
       if (
         x >= mp.playX &&
@@ -87,4 +90,9 @@ public class MouseHandle implements MouseListener {
 
   @Override
   public void mouseExited(MouseEvent e) {}
+
+  private void playSE(int index) {
+    se.setFile(index);
+    se.play();
+  }
 }

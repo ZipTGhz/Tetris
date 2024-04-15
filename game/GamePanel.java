@@ -38,7 +38,7 @@ public class GamePanel extends JPanel implements Runnable {
   private Block nextBlock;
   private Thread gameThread;
   private Color[] cs = Colors.getCellColors();
-  private Sound sound = new Sound();
+  private Sound se = new Sound();
   Block currentBlock, ghostBlock;
   FileIO f = new FileIO();
   CollisionChecker cc = new CollisionChecker(this);
@@ -52,6 +52,7 @@ public class GamePanel extends JPanel implements Runnable {
         currentBlock.move(0, 1);
         if (cc.isCollision(currentBlock) == true) {
           currentBlock.move(0, -1);
+          playSE(7);
           lockBlock();
           clearCompletedRow();
           if (checkGameOver()) gameOver = true;
@@ -201,7 +202,19 @@ public class GamePanel extends JPanel implements Runnable {
         grid.cutRow(y + rowCompleted, y);
       }
     }
-    score += rowCompleted;
+
+    if (rowCompleted != 0) {
+      if (rowCompleted == 1) {
+        playSE(1);
+      } else if (rowCompleted == 2) {
+        playSE(2);
+      } else if (rowCompleted == 3) {
+        playSE(3);
+      } else {
+        playSE(4);
+      }
+      score += rowCompleted;
+    }
   }
 
   boolean checkGameOver() {
@@ -227,18 +240,8 @@ public class GamePanel extends JPanel implements Runnable {
     ghostBlock.move(0, -1);
   }
 
-  // private void playMusic(int index) {
-  //   sound.setFile(index);
-  //   sound.play();
-  //   sound.loop();
-  // }
-
-  // private void stopMusic() {
-  //   sound.stop();
-  // }
-
-  private void playSE(int index) {
-    sound.setFile(index);
-    sound.stop();
+  void playSE(int index) {
+    se.setFile(index);
+    se.play();
   }
 }

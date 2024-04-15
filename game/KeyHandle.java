@@ -36,6 +36,7 @@ public class KeyHandle implements KeyListener {
     }
     if (gp.pause) return;
     if (keyCode == KeyEvent.VK_A || keyCode == KeyEvent.VK_LEFT) {
+      gp.playSE(5);
       gp.currentBlock.move(-1, 0);
       gp.ghostBlock.move(-1, 0);
       if (
@@ -46,6 +47,7 @@ public class KeyHandle implements KeyListener {
         gp.ghostBlock.move(1, 0);
       }
     } else if (keyCode == KeyEvent.VK_D || keyCode == KeyEvent.VK_RIGHT) {
+      gp.playSE(5);
       gp.currentBlock.move(1, 0);
       gp.ghostBlock.move(1, 0);
 
@@ -57,6 +59,7 @@ public class KeyHandle implements KeyListener {
         gp.ghostBlock.move(-1, 0);
       }
     } else if (keyCode == KeyEvent.VK_W || keyCode == KeyEvent.VK_UP) {
+      gp.playSE(6);
       gp.currentBlock.rotate();
       gp.ghostBlock.rotate();
       if (
@@ -69,6 +72,7 @@ public class KeyHandle implements KeyListener {
     } else if (keyCode == KeyEvent.VK_S || keyCode == KeyEvent.VK_DOWN) {
       gp.currentBlock.move(0, 1);
       if (gp.cc.isCollision(gp.currentBlock) == true) {
+        gp.playSE(7);
         gp.currentBlock.move(0, -1);
         gp.lockBlock();
         gp.clearCompletedRow();
@@ -81,6 +85,7 @@ public class KeyHandle implements KeyListener {
     } else if (keyCode == KeyEvent.VK_SPACE) {
       gp.timer.stop();
       gp.instantMoveDown();
+      gp.playSE(8);
       gp.timer.start();
     }
   }
