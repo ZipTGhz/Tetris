@@ -55,7 +55,10 @@ public class GamePanel extends JPanel implements Runnable {
           playSE(7);
           lockBlock();
           clearCompletedRow();
-          if (checkGameOver()) gameOver = true;
+          if (checkGameOver()) {
+            gameOver = true;
+            playSE(10);
+          }
         }
 
         if (cc.isInsideScreen(currentBlock) == false) currentBlock.move(0, -1);
@@ -81,6 +84,7 @@ public class GamePanel extends JPanel implements Runnable {
     initBlocks();
     gameThread.start();
     timer.start();
+    gameOver = false;
   }
 
   public void restartGame() {
@@ -91,6 +95,7 @@ public class GamePanel extends JPanel implements Runnable {
   }
 
   public void stopGame() {
+    gameOver = true;
     if (gameThread != null) gameThread.interrupt();
     restartGame();
   }
@@ -229,7 +234,10 @@ public class GamePanel extends JPanel implements Runnable {
     currentBlock.move(0, -1);
     lockBlock();
     clearCompletedRow();
-    if (checkGameOver()) gameOver = true;
+    if (checkGameOver()) {
+      gameOver = true;
+      playSE(10);
+    }
   }
 
   private void updateGhostBlock() {

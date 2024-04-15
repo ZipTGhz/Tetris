@@ -19,6 +19,13 @@ public class KeyHandle implements KeyListener {
 
   @Override
   public void keyPressed(KeyEvent e) {
+    int keyCode = e.getKeyCode();
+    if (keyCode == KeyEvent.VK_ESCAPE) {
+      gp.pause = true;
+      gp.playSE(13);
+      gf.gd.returnMainMenuDialog();
+      gp.pause = false;
+    }
     if (gp.gameOver) {
       if (gp.isWrite == false && gp.highScore < gp.score) {
         gp.f.writeHighScore(gp.score);
@@ -26,13 +33,9 @@ public class KeyHandle implements KeyListener {
       gp.isWrite = true;
       return;
     }
-    int keyCode = e.getKeyCode();
     if (keyCode == KeyEvent.VK_P) {
       gp.pause = !gp.pause;
-    } else if (keyCode == KeyEvent.VK_ESCAPE) {
-      gp.pause = true;
-      gf.gd.returnMainMenuDialog();
-      gp.pause = false;
+      gp.playSE(9);
     }
     if (gp.pause) return;
     if (keyCode == KeyEvent.VK_A || keyCode == KeyEvent.VK_LEFT) {
