@@ -40,12 +40,19 @@ public class MouseHandle implements MouseListener {
       ) {
         mp.htpButton = mp.image[4];
       } else if (
+        x >= mp.optX &&
+        y >= mp.optY &&
+        x <= mp.optX + mp.optButton.getWidth() &&
+        y <= mp.optY + mp.optButton.getHeight()
+      ) {
+        mp.optButton = mp.image[6];
+      } else if (
         x >= mp.exitX &&
         y >= mp.exitY &&
         x <= mp.exitX + mp.exitButton.getWidth() &&
         y <= mp.exitY + mp.exitButton.getHeight()
       ) {
-        mp.exitButton = mp.image[6];
+        mp.exitButton = mp.image[8];
       }
       mp.repaint();
     }
@@ -62,7 +69,6 @@ public class MouseHandle implements MouseListener {
         x <= mp.playX + mp.playButton.getWidth() &&
         y <= mp.playY + mp.playButton.getHeight()
       ) {
-        mp.playButton = mp.image[1];
         gf.playGame();
       } else if (
         x >= mp.htpX &&
@@ -70,17 +76,26 @@ public class MouseHandle implements MouseListener {
         x <= mp.htpX + mp.htpButton.getWidth() &&
         y <= mp.htpY + mp.htpButton.getHeight()
       ) {
-        mp.htpButton = mp.image[3];
-        mp.gd.howToPlayDialog();
+        gf.gd.howToPlayDialog();
+      } else if (
+        x >= mp.optX &&
+        y >= mp.optY &&
+        x <= mp.optX + mp.optButton.getWidth() &&
+        y <= mp.optY + mp.optButton.getHeight()
+      ) {
+        gf.gs.showGameSetting();
       } else if (
         x >= mp.exitX &&
         y >= mp.exitY &&
         x <= mp.exitX + mp.exitButton.getWidth() &&
         y <= mp.exitY + mp.exitButton.getHeight()
       ) {
-        mp.exitButton = mp.image[5];
-        mp.gd.exitDialog();
+        gf.gd.exitDialog();
       }
+      mp.playButton = mp.image[1];
+      mp.htpButton = mp.image[3];
+      mp.optButton = mp.image[5];
+      mp.exitButton = mp.image[7];
       mp.repaint();
     }
   }

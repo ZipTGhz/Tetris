@@ -13,16 +13,18 @@ public class GameFrame extends JFrame {
 
   private CardLayout cardLayout = new CardLayout();
   private JPanel cardPanel = new JPanel(cardLayout);
-  public GameDialog gd;
-  private MainMenuPanel mp;
-  private GamePanel gp = null;
-  private Sound music = new Sound();
+  MainMenuPanel mp = null;
+  GamePanel gp = null;
+  
+  public GameSetting gs;
   public BufferedImage originalImage;
+  public GameDialog gd;
 
   GameFrame() {
     gd = new GameDialog(this);
-    mp = new MainMenuPanel(this, gd);
+    mp = new MainMenuPanel(this);
     gp = new GamePanel(this);
+    gs = new GameSetting(this);
     cardPanel.add(mp, "mp");
     cardPanel.add(gp, "gp");
     try {
@@ -43,7 +45,7 @@ public class GameFrame extends JFrame {
   }
 
   public void displayMainMenu() {
-    playMusic(0);
+    mp.playMusic(0);
     gp.stopGame();
     cardLayout.show(cardPanel, "mp");
     mp.requestFocusInWindow();
@@ -52,20 +54,12 @@ public class GameFrame extends JFrame {
   }
 
   public void playGame() {
-    stopMusic();
+    mp.stopMusic();
     cardLayout.show(cardPanel, "gp");
     gp.requestFocusInWindow();
     gp.startGame();
     pack();
   }
 
-  private void playMusic(int index) {
-    music.setFile(index);
-    music.play();
-    music.loop();
-  }
 
-  private void stopMusic() {
-    music.stop();
-  }
 }

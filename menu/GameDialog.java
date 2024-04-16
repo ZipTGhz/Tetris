@@ -31,6 +31,7 @@ public class GameDialog {
       dialog.add(info[i]);
     }
 
+    dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
     dialog.setSize(400, 300);
     dialog.setLocationRelativeTo(gf);
     dialog.setResizable(false);

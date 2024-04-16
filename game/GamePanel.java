@@ -38,7 +38,8 @@ public class GamePanel extends JPanel implements Runnable {
   private Block nextBlock;
   private Thread gameThread;
   private Color[] cs = Colors.getCellColors();
-  private Sound se = new Sound();
+  public Sound music = new Sound();
+  public Sound se = new Sound();
   Block currentBlock, ghostBlock;
   FileIO f = new FileIO();
   CollisionChecker cc = new CollisionChecker(this);
@@ -72,7 +73,8 @@ public class GamePanel extends JPanel implements Runnable {
     this.gf = gf;
     kh = new KeyHandle(gf, this);
     addKeyListener(kh);
-    // playMusic(0);
+    music.setFile(14);
+    se.setFile(1);
     setPreferredSize(new Dimension(SIZE * 16, SIZE * 20));
     highScore = f.readHighScore();
     this.setDoubleBuffered(true);
@@ -84,6 +86,7 @@ public class GamePanel extends JPanel implements Runnable {
     initBlocks();
     gameThread.start();
     timer.start();
+    playMusic();
     gameOver = false;
   }
 
@@ -97,6 +100,7 @@ public class GamePanel extends JPanel implements Runnable {
   public void stopGame() {
     gameOver = true;
     if (gameThread != null) gameThread.interrupt();
+    if (music.isOpened()) stopMusic();
     restartGame();
   }
 
@@ -246,6 +250,15 @@ public class GamePanel extends JPanel implements Runnable {
       cc.isInsideScreen(ghostBlock) && cc.isCollision(ghostBlock) == false
     ) ghostBlock.move(0, 1);
     ghostBlock.move(0, -1);
+  }
+
+  private void playMusic() {
+    music.play();
+    music.loop();
+  }
+
+  private void stopMusic() {
+    music.stop();
   }
 
   void playSE(int index) {

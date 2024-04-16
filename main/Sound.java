@@ -4,11 +4,13 @@ import java.net.URL;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
+import javax.sound.sampled.FloatControl;
 
 public class Sound {
 
-  Clip clip;
+  Clip clip = null;
   URL soundURL[] = new URL[15];
+  float volumeValue = 1;
 
   public Sound() {
     soundURL[0] = getClass().getResource("/sounds/theme.wav");
@@ -29,7 +31,7 @@ public class Sound {
 
     soundURL[12] = getClass().getResource("/sounds/select.wav");
     soundURL[13] = getClass().getResource("/sounds/dialog.wav");
-    // soundURL[14] = getClass().getResource("/sounds/");
+    soundURL[14] = getClass().getResource("/sounds/theme_piano.wav");
   }
 
   public void setFile(int index) {
@@ -37,6 +39,10 @@ public class Sound {
       AudioInputStream ais = AudioSystem.getAudioInputStream(soundURL[index]);
       clip = AudioSystem.getClip();
       clip.open(ais);
+      FloatControl newFc = (FloatControl) clip.getControl(
+        FloatControl.Type.MASTER_GAIN
+      );
+      newFc.setValue(volumeValue);
     } catch (Exception e) {}
   }
 
@@ -50,5 +56,13 @@ public class Sound {
 
   public void stop() {
     clip.stop();
+  }
+
+  public boolean isOpened() {
+    return clip != null;
+  }
+
+  public void setVolume(float volumeValue) {
+    this.volumeValue = volumeValue;
   }
 }
