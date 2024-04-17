@@ -15,7 +15,7 @@ public class GameFrame extends JFrame {
   public MainMenuPanel mp = null;
   public GamePanel gp = null;
 
-  public GameSetting gs;
+  public GameSettingDialog gs;
   public BufferedImage originalImage;
   public GameDialog gd;
 
@@ -23,11 +23,12 @@ public class GameFrame extends JFrame {
     gd = new GameDialog(this);
     mp = new MainMenuPanel(this);
     gp = new GamePanel(this);
-    gs = new GameSetting(this);
+    gs = new GameSettingDialog(this);
     cardPanel.add(mp, "mp");
     cardPanel.add(gp, "gp");
     try {
-      originalImage = ImageIO.read(getClass().getResource("/img/tetris.jpg"));
+      originalImage =
+        ImageIO.read(getClass().getResource("/resources/images/tetris.jpg"));
     } catch (Exception e) {
       e.printStackTrace();
     }
@@ -41,7 +42,7 @@ public class GameFrame extends JFrame {
 
           @Override
           public void windowClosing(WindowEvent e) {
-            if (gd.exitDialog() == true) dispose();
+            if (gd.exitDialog() == true) System.exit(0);
           }
 
           @Override

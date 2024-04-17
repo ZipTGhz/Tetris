@@ -5,7 +5,7 @@ import java.awt.GridLayout;
 import java.awt.image.BufferedImage;
 import javax.swing.JDialog;
 
-public class GameSetting {
+public class GameSettingDialog {
 
   BufferedImage theme;
   //Để truy cập vào game panel và menu panel (để chỉnh âm lượng)
@@ -16,7 +16,7 @@ public class GameSetting {
 
   private AudioPanel audioPanel;
 
-  public GameSetting(GameFrame gf) {
+  public GameSettingDialog(GameFrame gf) {
     this.gf = gf;
     gameDialog = new JDialog(gf, "How to play", true);
     gameDialog.setSize(500, 400);

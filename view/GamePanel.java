@@ -3,11 +3,6 @@ package view;
 import controller.CollisionChecker;
 import controller.KeyHandle;
 import controller.Sound;
-import model.Grid;
-import model.block.Block;
-import model.block.Blocks;
-import model.block.Colors;
-
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -19,7 +14,10 @@ import java.util.Arrays;
 import java.util.Random;
 import javax.swing.JPanel;
 import javax.swing.Timer;
-
+import model.Grid;
+import model.block.Block;
+import model.block.Blocks;
+import model.block.Colors;
 import util.FileIO;
 
 public class GamePanel extends JPanel implements Runnable {
