@@ -90,11 +90,12 @@ public class GamePanel extends JPanel implements Runnable {
     playMusic();
 
     gameOver = false;
+    isWrite = false;
   }
 
   public void stopGame() {
     gameOver = true;
-    isWrite = false;
+    isWrite = true;
     if (gameThread != null) gameThread.interrupt();
     if (music.isOpened()) stopMusic();
     grid.setEmptyGrid();
@@ -130,7 +131,7 @@ public class GamePanel extends JPanel implements Runnable {
         repaint();
         --delta;
         if (gameOver == true && isWrite == false) {
-          f.write_int(score);
+          if (highScore < score) f.write_int(score);
           isWrite = true;
         }
       }

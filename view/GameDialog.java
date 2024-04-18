@@ -77,14 +77,8 @@ public class GameDialog {
       JLabel.CENTER
     );
     full_nameLabel.setFont(tahoma_BOLD_20);
-    JLabel idLabel = new JLabel("ID: 221230818", JLabel.CENTER);
-    idLabel.setFont(tahoma_BOLD_20);
-    JLabel classLabel = new JLabel("CLASS: IT4 - K63", JLabel.CENTER);
-    classLabel.setFont(tahoma_BOLD_20);
 
     aboutDialog.add(full_nameLabel);
-    aboutDialog.add(idLabel);
-    aboutDialog.add(classLabel);
 
     aboutDialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
     aboutDialog.setSize(500, 400);

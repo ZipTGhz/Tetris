@@ -6,40 +6,40 @@ import java.awt.image.BufferedImage;
 import javax.swing.JDialog;
 import view.GameFrame;
 
-public class GameSettingDialog {
+public class GameSettingDialog extends JDialog {
 
   BufferedImage theme;
   //Để truy cập vào game panel và menu panel (để chỉnh âm lượng)
   private GameFrame gf;
 
-  private JDialog gameDialog;
   private Container container;
 
   private AudioPanel audioPanel;
   public SpeedPanel speedPanel;
 
   public GameSettingDialog(GameFrame gf) {
+    super(gf, "How to play", true);
     this.gf = gf;
-    gameDialog = new JDialog(gf, "How to play", true);
-    gameDialog.setSize(500, 400);
-    gameDialog.setResizable(false);
-    gameDialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+    setTitle("GAME SETTING");
+    setSize(500, 400);
+    setResizable(false);
+    setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
     initGameSetting();
   }
 
   private void initGameSetting() {
-    container = gameDialog.getContentPane();
-    gameDialog.setLayout(new GridLayout(2, 1));
+    container = getContentPane();
+    setLayout(new GridLayout(2, 1));
 
     audioPanel = new AudioPanel(gf);
     speedPanel = new SpeedPanel(gf);
-    
+
     container.add(audioPanel);
     container.add(speedPanel);
   }
 
   public void showGameSetting() {
-    gameDialog.setLocationRelativeTo(gf);
-    gameDialog.setVisible(true);
+    setLocationRelativeTo(gf);
+    setVisible(true);
   }
 }

@@ -16,7 +16,7 @@ public class SpeedPanel extends SettingPanel {
   private GridBagConstraints c = new GridBagConstraints();
   private JLabel speedLabel;
   private JSlider speedSlider;
-
+  private JLabel sub_speedLabel;
   private int speedValue;
 
   public SpeedPanel(GameFrame gf) {
@@ -38,9 +38,18 @@ public class SpeedPanel extends SettingPanel {
     speedSlider.setMinorTickSpacing(1);
     speedSlider.setPaintTicks(true);
     speedSlider.setPaintLabels(true);
+
+    sub_speedLabel =
+      new JLabel(
+        "The settings will take effect upon replaying the game.",
+        JLabel.CENTER
+      );
+    sub_speedLabel.setAutoscrolls(true);
+    sub_speedLabel.setFont(tahoma);
     //ADD COMPONENT
     addComponent(speedLabel, 0, 0, c);
     addComponent(speedSlider, 1, 0, c);
+    addComponent(sub_speedLabel, 1, 1, c);
     speedSlider.addChangeListener(
       new ChangeListener() {
         @Override

@@ -9,7 +9,7 @@ import view.GameFrame;
 public class SettingPanel extends JPanel {
 
   protected GameFrame gf;
-  public Font tahoma = new Font("Tahoma", Font.BOLD, 16);
+  public Font tahoma = new Font("Tahoma", Font.BOLD, 14);
 
   public SettingPanel(GameFrame gf) {
     this.gf = gf;
