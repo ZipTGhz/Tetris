@@ -9,16 +9,16 @@ import java.io.IOException;
 
 public class FileIO {
 
-  File file = new File(
-    System.getProperty("user.dir"),
-    "/txt_file/high_score.txt"
-  );
+  File file;
 
-  public int readHighScore() {
+  public FileIO(String relative_path) {
+    file = new File(System.getProperty("user.dir"), relative_path);
+  }
+
+  public int read_int() {
     int highScore = 0;
     try {
       BufferedReader br = new BufferedReader(new FileReader(file));
-
       String line = br.readLine();
       highScore = Integer.parseInt(line);
       br.close();
@@ -28,14 +28,10 @@ public class FileIO {
     return highScore;
   }
 
-  public void writeHighScore(int newHighScore) {
+  public void write_int(int value) {
     try {
-      File file = new File(
-        System.getProperty("user.dir"),
-        "/txt_file/high_score.txt"
-      );
       BufferedWriter bw = new BufferedWriter(new FileWriter(file));
-      bw.write(Integer.toString(newHighScore));
+      bw.write(Integer.toString(value));
       bw.close();
     } catch (IOException e) {
       e.printStackTrace();

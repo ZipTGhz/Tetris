@@ -20,7 +20,7 @@ public class MainMenuPanel extends JPanel {
   public int optX, optY;
   public int aboutX, aboutY;
 
-  private GameFrame gf;
+  GameFrame gf;
   public Sound music = new Sound();
 
   public MainMenuPanel(GameFrame gf) {

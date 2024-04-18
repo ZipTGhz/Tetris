@@ -1,57 +1,49 @@
-package view;
+package view.setting;
 
-import java.awt.Component;
+import controller.Sound;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import javax.sound.sampled.FloatControl;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.JSlider;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import view.GameFrame;
 
-import controller.Sound;
-
-public class AudioPanel extends JPanel {
-
-  private GameFrame gf;
+public class AudioPanel extends SettingPanel {
 
   private GridBagConstraints c = new GridBagConstraints();
   private JLabel menu_musicLabel, game_musicLabel, seLabel;
-  private GameSlider menu_musicSlider, game_musicSlider, seSlider;
+  private AudioSlider menu_musicSlider, game_musicSlider, seSlider;
 
   public AudioPanel(GameFrame gf) {
-    this.gf = gf;
+    super(gf);
     setLayout(new GridBagLayout());
     initAudioPanel();
   }
 
   private void initAudioPanel() {
+    //INIT AND CONFIG
     menu_musicLabel = new JLabel("MUSIC (MENU)");
     game_musicLabel = new JLabel("MUSIC (GAME)");
     seLabel = new JLabel("SOUND EFFECT");
 
-    menu_musicSlider = new GameSlider(0, 100, 100);
-    game_musicSlider = new GameSlider(0, 100, 100);
-    seSlider = new GameSlider(0, 100, 100);
+    menu_musicSlider = new AudioSlider(0, 100, 100);
+    game_musicSlider = new AudioSlider(0, 100, 100);
+    seSlider = new AudioSlider(0, 100, 100);
 
-    addComponent(menu_musicLabel, 0, 0);
-    addComponent(menu_musicSlider, 1, 0);
+    //ADD COMPONENT
+    addComponent(menu_musicLabel, 0, 0, c);
+    addComponent(menu_musicSlider, 1, 0, c);
     addVolumeListener(menu_musicSlider, gf.mp.music);
 
-    addComponent(game_musicLabel, 0, 1);
-    addComponent(game_musicSlider, 1, 1);
+    addComponent(game_musicLabel, 0, 1, c);
+    addComponent(game_musicSlider, 1, 1, c);
     addVolumeListener(game_musicSlider, gf.gp.music);
 
-    addComponent(seLabel, 0, 2);
-    addComponent(seSlider, 1, 2);
+    addComponent(seLabel, 0, 2, c);
+    addComponent(seSlider, 1, 2, c);
     addVolumeListener(seSlider, gf.gp.se);
-  }
-
-  private void addComponent(Component component, int x, int y) {
-    c.gridx = x;
-    c.gridy = y;
-    add(component, c);
   }
 
   private void addVolumeListener(JSlider slider, Sound sound) {
@@ -77,9 +69,9 @@ public class AudioPanel extends JPanel {
     fc.setValue(gain);
   }
 
-  private class GameSlider extends JSlider {
+  private class AudioSlider extends JSlider {
 
-    public GameSlider(int min, int max, int value) {
+    public AudioSlider(int min, int max, int value) {
       super(min, max, value);
       setMajorTickSpacing(10);
       setMinorTickSpacing(5);

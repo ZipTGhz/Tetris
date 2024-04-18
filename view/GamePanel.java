@@ -26,10 +26,12 @@ public class GamePanel extends JPanel implements Runnable {
   private final int SIZE = 32;
   private final int FPS = 30;
   private final long oneBillion = (long) 1e9;
+  private final Font tahomaFont = new Font("Tahoma", Font.PLAIN, SIZE * 2 / 3);
 
   //GAME's VARIABLES
-  private int randomIndex;
   private Random random = new Random();
+  private int randomIndex;
+  private int speed;
   public int score = 0;
   public int highScore;
   public boolean pause = false;
@@ -37,41 +39,22 @@ public class GamePanel extends JPanel implements Runnable {
   public boolean gameOver = false;
 
   //SYSTEM
+  private KeyHandle kh;
   private ArrayList<Block> bs = new ArrayList<>();
   private Block nextBlock;
   private Thread gameThread;
   private Color[] cs = Colors.getCellColors();
+
+  GameFrame gf;
+
+  public Grid grid = new Grid(SIZE);
+  public Block currentBlock, ghostBlock;
+  public CollisionChecker cc = new CollisionChecker(this);
+
   public Sound music = new Sound();
   public Sound se = new Sound();
-  public Block currentBlock;
-  public Block ghostBlock;
-  public FileIO f = new FileIO();
-  public CollisionChecker cc = new CollisionChecker(this);
-  public Grid grid = new Grid(SIZE);
-  public Timer timer = new Timer(
-    500,
-    new ActionListener() {
-      @Override
-      public void actionPerformed(ActionEvent e) {
-        if (pause || gameOver) return;
-        currentBlock.move(0, 1);
-        if (cc.isCollision(currentBlock) == true) {
-          currentBlock.move(0, -1);
-          playSE(7);
-          lockBlock();
-          clearCompletedRow();
-          if (checkGameOver()) {
-            gameOver = true;
-            playSE(10);
-          }
-        }
-
-        if (cc.isInsideScreen(currentBlock) == false) currentBlock.move(0, -1);
-      }
-    }
-  );
-  GameFrame gf;
-  private KeyHandle kh;
+  public FileIO f = new FileIO("/txt_file/high_score.txt");
+  public Timer timer;
 
   public GamePanel(GameFrame gf) {
     this.gf = gf;
@@ -80,36 +63,56 @@ public class GamePanel extends JPanel implements Runnable {
     music.setFile(14);
     se.setFile(1);
     setPreferredSize(new Dimension(SIZE * 16, SIZE * 20));
-    highScore = f.readHighScore();
+    highScore = f.read_int();
     this.setDoubleBuffered(true);
     this.setFocusable(true);
   }
 
   public void startGame() {
     gameThread = new Thread(this);
+
     initBlocks();
+    speed = gf.gs.speedPanel.getSpeedValue();
+
+    timer =
+      new Timer(
+        (10 - speed) * 100,
+        new ActionListener() {
+          @Override
+          public void actionPerformed(ActionEvent e) {
+            if (pause || gameOver) return;
+            kh.moveDown();
+          }
+        }
+      );
     gameThread.start();
     timer.start();
     playMusic();
+
     gameOver = false;
   }
 
-  public void restartGame() {
-    grid.setEmptyGrid();
-    timer.stop();
-    score = 0;
-    bs.clear();
-  }
+  // public void restartGame() {
+  //   grid.setEmptyGrid();
+  //   if (timer != null) {
+  //     timer.stop();
+  //     timer.start();
+  //   }
+  //   score = 0;
+  //   bs.clear();
+  // }
 
   public void stopGame() {
     gameOver = true;
     if (gameThread != null) gameThread.interrupt();
     if (music.isOpened()) stopMusic();
-    restartGame();
+    grid.setEmptyGrid();
+    if (timer != null) timer.stop();
+    score = 0;
+    bs.clear();
   }
 
   private void initBlocks() {
-    // bs.clear();
     bs.addAll(Arrays.asList(new Blocks().get_all_Blocks()));
 
     randomIndex = random.nextInt(bs.size());
@@ -159,11 +162,9 @@ public class GamePanel extends JPanel implements Runnable {
       }
     }
     g.setColor(Color.WHITE);
-    g.setFont(new Font("Arial", Font.PLAIN, SIZE * 2 / 3));
+    g.setFont(tahomaFont);
 
     g.drawString("HIGH SCORE: " + Integer.toString(highScore), SIZE * 10, SIZE);
-    // g.drawString(Integer.toString(highScore), SIZE * 12, SIZE * 2);
-
     g.drawString("SCORE: " + Integer.toString(score), SIZE * 10, SIZE * 3);
     g.drawString("NEXT BLOCK", SIZE * 10, SIZE * 5);
     g.setColor(cs[nextBlock.id]);
@@ -179,6 +180,7 @@ public class GamePanel extends JPanel implements Runnable {
         g.drawRect(xx + x * SIZE, yy + y * SIZE, SIZE, SIZE);
       }
     }
+    g.drawString("SPEED: " + Integer.toString(speed), SIZE * 11, SIZE * 14);
     if (gameOver) {
       g.drawString("GAME OVER!", SIZE * 11, SIZE * 16);
       return;
@@ -226,7 +228,7 @@ public class GamePanel extends JPanel implements Runnable {
       } else {
         playSE(4);
       }
-      score += rowCompleted;
+      score += rowCompleted * speed;
     }
   }
 

@@ -91,7 +91,7 @@ public class MouseHandle implements MouseListener {
         x <= mp.aboutX + mp.aboutButton.getWidth() &&
         y <= mp.aboutY + mp.aboutButton.getHeight()
       ) {
-        gf.gd.exitDialog();
+        gf.gd.aboutDialog();
       }
       mp.playButton = mp.image[1];
       mp.infoButton = mp.image[3];

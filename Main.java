@@ -1,5 +1,3 @@
-
-
 import view.GameFrame;
 
 public class Main {

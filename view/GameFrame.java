@@ -1,8 +1,9 @@
 package view;
 
+import controller.CustomWindowListener;
+import view.setting.GameSettingDialog;
+
 import java.awt.CardLayout;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
 import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
@@ -35,32 +36,7 @@ public class GameFrame extends JFrame {
     setIconImage(originalImage);
     setTitle("TETRIS!");
     setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-    this.addWindowListener(
-        new WindowListener() {
-          @Override
-          public void windowOpened(WindowEvent e) {}
-
-          @Override
-          public void windowClosing(WindowEvent e) {
-            if (gd.exitDialog() == true) System.exit(0);
-          }
-
-          @Override
-          public void windowClosed(WindowEvent e) {}
-
-          @Override
-          public void windowIconified(WindowEvent e) {}
-
-          @Override
-          public void windowDeiconified(WindowEvent e) {}
-
-          @Override
-          public void windowActivated(WindowEvent e) {}
-
-          @Override
-          public void windowDeactivated(WindowEvent e) {}
-        }
-      );
+    this.addWindowListener(new CustomWindowListener(gd));
     setResizable(false);
   }
 

@@ -252,7 +252,7 @@ public class Blocks {
     public GhostBlock(Block b) {
       this.id = 8;
       this.rotationState = b.rotationState;
-      this.cell = new Position[b.cell.length][b.cell[0].length]; // Tạo một mảng mới để sao chép các vị trí của block ban đầu
+      this.cell = new Position[b.cell.length][b.cell[0].length];
       for (int i = 0; i < b.cell.length; i++) {
         for (int j = 0; j < b.cell[0].length; ++j) {
           this.cell[i][j] = new Position(b.cell[i][j].x, b.cell[i][j].y);

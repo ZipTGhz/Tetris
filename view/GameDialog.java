@@ -1,5 +1,7 @@
 package view;
 
+import java.awt.BorderLayout;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Image;
 import javax.swing.ImageIcon;
@@ -24,7 +26,7 @@ public class GameDialog {
     info[3] = new JLabel("D / RIGHT_ARROW ___ MOVE RIGHT");
     info[4] = new JLabel("SPACE ___ INSTANT MOVE DOWN");
     info[5] = new JLabel("P ___ PAUSE GAME");
-    dialog.setLayout(new GridLayout(info.length, 3)); // Sử dụng GridLayout để sắp xếp các thành phần
+    dialog.setLayout(new GridLayout(info.length, 3));
     for (int i = 0; i < info.length; ++i) {
       info[i].setHorizontalAlignment(JLabel.CENTER);
       dialog.add(info[i]);
@@ -64,5 +66,20 @@ public class GameDialog {
     if (result == JOptionPane.YES_OPTION) {
       gf.displayMainMenu();
     }
+  }
+
+  public void aboutDialog() {
+    JDialog aboutDialog = new JDialog(gf, "ABOUT", true);
+    aboutDialog.setLayout(new BorderLayout());
+    JLabel aboutLabel = new JLabel("Tran Van Giap - 221230818");
+    aboutLabel.setFont(new Font("Tahoma", Font.BOLD, 20));
+    aboutLabel.setHorizontalAlignment(JLabel.CENTER);
+    aboutDialog.add(aboutLabel, BorderLayout.CENTER);
+
+    aboutDialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+    aboutDialog.setSize(400, 300);
+    aboutDialog.setLocationRelativeTo(gf);
+    aboutDialog.setResizable(false);
+    aboutDialog.setVisible(true);
   }
 }

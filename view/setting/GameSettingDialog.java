@@ -1,9 +1,10 @@
-package view;
+package view.setting;
 
 import java.awt.Container;
 import java.awt.GridLayout;
 import java.awt.image.BufferedImage;
 import javax.swing.JDialog;
+import view.GameFrame;
 
 public class GameSettingDialog {
 
@@ -15,6 +16,7 @@ public class GameSettingDialog {
   private Container container;
 
   private AudioPanel audioPanel;
+  public SpeedPanel speedPanel;
 
   public GameSettingDialog(GameFrame gf) {
     this.gf = gf;
@@ -28,8 +30,11 @@ public class GameSettingDialog {
   private void initGameSetting() {
     container = gameDialog.getContentPane();
     gameDialog.setLayout(new GridLayout(2, 1));
+
     audioPanel = new AudioPanel(gf);
+    speedPanel = new SpeedPanel(gf);
     container.add(audioPanel);
+    container.add(speedPanel);
   }
 
   public void showGameSetting() {
