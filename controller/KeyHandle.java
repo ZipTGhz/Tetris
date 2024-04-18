@@ -27,13 +27,7 @@ public class KeyHandle implements KeyListener {
       gf.gd.returnMainMenuDialog();
       gp.pause = false;
     }
-    if (gp.gameOver) {
-      if (gp.isWrite == false && gp.highScore < gp.score) {
-        gp.f.write_int(gp.score);
-      }
-      gp.isWrite = true;
-      return;
-    }
+    if (gp.gameOver) return;
     if (keyCode == KeyEvent.VK_P) {
       gp.pause = !gp.pause;
       gp.playSE(9);
@@ -105,7 +99,10 @@ public class KeyHandle implements KeyListener {
       gp.playSE(7);
       gp.lockBlock();
       gp.clearCompletedRow();
-      if (gp.checkGameOver()) gp.gameOver = true;
+      if (gp.checkGameOver()) {
+        gp.gameOver = true;
+        gp.playSE(10);
+      }
     }
     if (gp.cc.isInsideScreen(gp.currentBlock) == false) gp.currentBlock.move(
       0,

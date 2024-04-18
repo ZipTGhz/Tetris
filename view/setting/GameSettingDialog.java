@@ -33,6 +33,7 @@ public class GameSettingDialog {
 
     audioPanel = new AudioPanel(gf);
     speedPanel = new SpeedPanel(gf);
+    
     container.add(audioPanel);
     container.add(speedPanel);
   }

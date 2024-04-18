@@ -1,6 +1,5 @@
 package view;
 
-import java.awt.BorderLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Image;
@@ -12,6 +11,7 @@ import javax.swing.JOptionPane;
 public class GameDialog {
 
   GameFrame gf;
+  private Font tahoma_BOLD_20 = new Font("Tahoma", Font.BOLD, 20);
 
   public GameDialog(GameFrame gf) {
     this.gf = gf;
@@ -29,11 +29,12 @@ public class GameDialog {
     dialog.setLayout(new GridLayout(info.length, 3));
     for (int i = 0; i < info.length; ++i) {
       info[i].setHorizontalAlignment(JLabel.CENTER);
+      info[i].setFont(tahoma_BOLD_20);
       dialog.add(info[i]);
     }
 
     dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-    dialog.setSize(400, 300);
+    dialog.setSize(500, 400);
     dialog.setLocationRelativeTo(gf);
     dialog.setResizable(false);
     dialog.setVisible(true);
@@ -70,14 +71,23 @@ public class GameDialog {
 
   public void aboutDialog() {
     JDialog aboutDialog = new JDialog(gf, "ABOUT", true);
-    aboutDialog.setLayout(new BorderLayout());
-    JLabel aboutLabel = new JLabel("Tran Van Giap - 221230818");
-    aboutLabel.setFont(new Font("Tahoma", Font.BOLD, 20));
-    aboutLabel.setHorizontalAlignment(JLabel.CENTER);
-    aboutDialog.add(aboutLabel, BorderLayout.CENTER);
+    aboutDialog.setLayout(new GridLayout(3, 1));
+    JLabel full_nameLabel = new JLabel(
+      "Full Name: Tran Van Giap",
+      JLabel.CENTER
+    );
+    full_nameLabel.setFont(tahoma_BOLD_20);
+    JLabel idLabel = new JLabel("ID: 221230818", JLabel.CENTER);
+    idLabel.setFont(tahoma_BOLD_20);
+    JLabel classLabel = new JLabel("CLASS: IT4 - K63", JLabel.CENTER);
+    classLabel.setFont(tahoma_BOLD_20);
+
+    aboutDialog.add(full_nameLabel);
+    aboutDialog.add(idLabel);
+    aboutDialog.add(classLabel);
 
     aboutDialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-    aboutDialog.setSize(400, 300);
+    aboutDialog.setSize(500, 400);
     aboutDialog.setLocationRelativeTo(gf);
     aboutDialog.setResizable(false);
     aboutDialog.setVisible(true);

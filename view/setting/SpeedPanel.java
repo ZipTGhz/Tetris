@@ -1,5 +1,6 @@
 package view.setting;
 
+import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import javax.swing.JLabel;
@@ -28,7 +29,11 @@ public class SpeedPanel extends SettingPanel {
     //INIT AND CONFIG
     speedValue = f.read_int();
     speedLabel = new JLabel("SPEED");
+    speedLabel.setFont(tahoma);
+
     speedSlider = new JSlider(1, 9, speedValue);
+    speedSlider.setPreferredSize(new Dimension(350, 60));
+    speedSlider.setFont(tahoma);
     speedSlider.setMajorTickSpacing(4);
     speedSlider.setMinorTickSpacing(1);
     speedSlider.setPaintTicks(true);

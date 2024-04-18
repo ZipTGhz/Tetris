@@ -23,20 +23,17 @@ import util.FileIO;
 public class GamePanel extends JPanel implements Runnable {
 
   //CORE SETTING
-  private final int SIZE = 32;
-  private final int FPS = 30;
+  private final int SIZE = 32, FPS = 30;
   private final long oneBillion = (long) 1e9;
   private final Font tahomaFont = new Font("Tahoma", Font.PLAIN, SIZE * 2 / 3);
 
-  //GAME's VARIABLES
+  //GAME'S VARIABLES
   private Random random = new Random();
   private int randomIndex;
   private int speed;
-  public int score = 0;
-  public int highScore;
-  public boolean pause = false;
-  public boolean isWrite = false;
-  public boolean gameOver = false;
+
+  public int score, highScore;
+  public boolean pause = false, isWrite = false, gameOver = false;
 
   //SYSTEM
   private KeyHandle kh;
@@ -58,20 +55,23 @@ public class GamePanel extends JPanel implements Runnable {
 
   public GamePanel(GameFrame gf) {
     this.gf = gf;
+
     kh = new KeyHandle(gf, this);
     addKeyListener(kh);
+
     music.setFile(14);
     se.setFile(1);
+
     setPreferredSize(new Dimension(SIZE * 16, SIZE * 20));
-    highScore = f.read_int();
-    this.setDoubleBuffered(true);
-    this.setFocusable(true);
+    setDoubleBuffered(true);
+    setFocusable(true);
   }
 
   public void startGame() {
     gameThread = new Thread(this);
 
     initBlocks();
+    highScore = f.read_int();
     speed = gf.gs.speedPanel.getSpeedValue();
 
     timer =
@@ -92,18 +92,9 @@ public class GamePanel extends JPanel implements Runnable {
     gameOver = false;
   }
 
-  // public void restartGame() {
-  //   grid.setEmptyGrid();
-  //   if (timer != null) {
-  //     timer.stop();
-  //     timer.start();
-  //   }
-  //   score = 0;
-  //   bs.clear();
-  // }
-
   public void stopGame() {
     gameOver = true;
+    isWrite = false;
     if (gameThread != null) gameThread.interrupt();
     if (music.isOpened()) stopMusic();
     grid.setEmptyGrid();
@@ -138,6 +129,10 @@ public class GamePanel extends JPanel implements Runnable {
         updateGhostBlock();
         repaint();
         --delta;
+        if (gameOver == true && isWrite == false) {
+          f.write_int(score);
+          isWrite = true;
+        }
       }
     }
   }

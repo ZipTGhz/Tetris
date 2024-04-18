@@ -1,6 +1,7 @@
 package view.setting;
 
 import controller.Sound;
+import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import javax.sound.sampled.FloatControl;
@@ -25,12 +26,18 @@ public class AudioPanel extends SettingPanel {
   private void initAudioPanel() {
     //INIT AND CONFIG
     menu_musicLabel = new JLabel("MUSIC (MENU)");
+    menu_musicLabel.setFont(tahoma);
     game_musicLabel = new JLabel("MUSIC (GAME)");
+    game_musicLabel.setFont(tahoma);
     seLabel = new JLabel("SOUND EFFECT");
+    seLabel.setFont(tahoma);
 
     menu_musicSlider = new AudioSlider(0, 100, 100);
+    menu_musicSlider.setFont(tahoma);
     game_musicSlider = new AudioSlider(0, 100, 100);
+    game_musicSlider.setFont(tahoma);
     seSlider = new AudioSlider(0, 100, 100);
+    seSlider.setFont(tahoma);
 
     //ADD COMPONENT
     addComponent(menu_musicLabel, 0, 0, c);
@@ -73,6 +80,7 @@ public class AudioPanel extends SettingPanel {
 
     public AudioSlider(int min, int max, int value) {
       super(min, max, value);
+      setPreferredSize(new Dimension(350, 60));
       setMajorTickSpacing(10);
       setMinorTickSpacing(5);
       setPaintTicks(true);
